@@ -1,0 +1,13 @@
+.card-margin{
+    box-shadow: .5rem .5rem 8px gray;
+    margin: 10px;
+    transition: all .2s ease-in-out;
+}
+
+.card-margin:hover{
+    transform: scale(1.1);
+}
+
+.custom-card-header{
+    background-color: rgb(41, 41, 226);
+}

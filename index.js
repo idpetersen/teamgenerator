@@ -17,21 +17,57 @@ const engQuestions = [
     type: "input",
     message: "What is the engineers name?",
     name: "engName",
+    validate: function (name){
+      valid = /^[A-Za-z\s]*$/.test(name)
+      if (valid){
+          return true;
+      } else {
+          console.log("\n Engineer's name should not include numbers (unless you're a cyborg)")
+          return false;
+      }
+    }
   },
   {
     type: "input",
     message: "What is the engineers ID?",
     name: "engID",
+    validate: function (id){
+      valid = /^[0-9]*$/.test(id)
+      if (valid){
+          return true;
+      } else {
+          console.log("\n Engineer's id should not include special characters or letters")
+          return false;
+      }
+    }
   },
   {
     type: "input",
     message: "What is the engineers Email?",
     name: "engEmail",
+    validate: function (email){
+      valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+      if (valid){
+          return true;
+      } else {
+          console.log("\n You must enter email with valid email formatting i.e. 'test@email.com' ")
+          return false;
+      }
+    }
   },
   {
     type: "input",
     message: "What is the engineers Github username?",
     name: "engGithub",
+    validate: function (github){
+      valid = /^[A-Za-z0-9-]*$/.test(github)
+      if (valid){
+          return true;
+      } else {
+          console.log("\n Github username can not include special characters")
+          return false;
+      }
+    }
   },
 ];
 //Interns questions
@@ -40,21 +76,57 @@ const intQuestions = [
     type: "input",
     message: "What is the interns name?",
     name: "intName",
+    validate: function (name){
+      valid = /^[A-Za-z\s]*$/.test(name)
+      if (valid){
+          return true;
+      } else {
+          console.log("\n Intern's name should not include numbers (unless you're a cyborg)")
+          return false;
+      }
+    }
   },
   {
     type: "input",
     message: "What is the interns ID?",
     name: "intID",
+    validate: function (id){
+      valid = /^[0-9]*$/.test(id)
+      if (valid){
+          return true;
+      } else {
+          console.log("\n Intern's id should not include special characters or letters")
+          return false;
+      }
+    }
   },
   {
     type: "input",
     message: "What is the interns Email?",
     name: "intEmail",
+    validate: function (email){
+      valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+      if (valid){
+          return true;
+      } else {
+          console.log("\n You must enter email with valid email formatting i.e. 'test@email.com' ")
+          return false;
+      }
+    }
   },
   {
     type: "input",
     message: "Where does the intern go to school?",
-    name: "intGithub",
+    name: "intSchool",
+    validate: function (school){
+      valid = /^[A-Za-z\s]*$/.test(school)
+      if (valid){
+          return true;
+      } else {
+          console.log("\n Intern's school should not include numbers")
+          return false;
+      }
+    }
   },
 ];
 //Starting on node run, asking manager's information
@@ -64,21 +136,57 @@ inquirer
       type: "input",
       message: "What is the managers name?",
       name: "managerName",
+      validate: function (name){
+        valid = /^[A-Za-z\s]*$/.test(name)
+        if (valid){
+            return true;
+        } else {
+            console.log("\n Manager's name should not include numbers (unless you're a cyborg)")
+            return false;
+        }
+      }
     },
     {
       type: "input",
       message: `What is the manager's employee ID?`,
       name: "managerID",
+      validate: function (id){
+        valid = /^[0-9]*$/.test(id)
+        if (valid){
+            return true;
+        } else {
+            console.log("\n Manager's id should not include special characters or letters")
+            return false;
+        }
+      }
     },
     {
       type: "input",
       message: "What is the managers email?",
       name: "managerEmail",
+      validate: function (email){
+        valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+        if (valid){
+            return true;
+        } else {
+            console.log("\n You must enter email with valid email formatting i.e. 'test@email.com' ")
+            return false;
+        }
+      }
     },
     {
       type: "input",
       message: "What is the managers office number?",
       name: "managerOffice",
+      validate: function (officeNumber){
+        valid = /^[0-9]*$/.test(officeNumber)
+        if (valid){
+            return true;
+        } else {
+            console.log("\n Manager's office number should not include special characters")
+            return false;
+        }
+      }
     },
   ])
   .then((ans) => {
@@ -112,7 +220,7 @@ inquirer
               const newEngineer = new Engineer(
                 ans.engName,
                 ans.engID,
-                ans.endEmail,
+                ans.engEmail,
                 ans.engGithub
               );
               //Pushing any and all engineers into a new array called engineersArr
@@ -128,7 +236,7 @@ inquirer
                 ans.intName,
                 ans.intID,
                 ans.intEmail,
-                ans.intGithub
+                ans.intSchool,
               );
               //Pushing any and all interns into a new array called internsArr
               internsArr.push(newIntern);
@@ -139,7 +247,7 @@ inquirer
               //Pushing all arrays together into teamArr using ES6 (...) because the TEAM() function only allows one parameter to pass through
             const teamArr = [...managerArr, ...internsArr, ...engineersArr];
             //Writing new file with the newly created array as the content
-            fs.writeFile("index.html", team(teamArr), (err) =>
+            fs.writeFile("./dist/index.html", team(teamArr), (err) =>
               err ? console.log(err) : console.log("generating HTML........")
             );
           }
