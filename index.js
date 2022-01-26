@@ -1,4 +1,5 @@
 //installing required features
+const team = require('./util/generateHtml')
 const fs = require('fs');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
@@ -7,6 +8,7 @@ const inquirer = require('inquirer');
 const managerArr = [];
 const engineersArr = [];
 const internsArr = [];
+// const teamArr = Array.prototype.push.apply(managerArr,engineersArr,internsArr)
 
 //Engineers questions
 const engQuestions = [{
@@ -96,12 +98,13 @@ inquirer.prompt([{
                 inquirer.prompt(intQuestions)
                 .then(ans => {
                     const newIntern = new Intern(ans.intName, ans.intID, ans.intEmail, ans.intGithub)
-                    engineersArr.push(newIntern)
-                    console.log(internsArr)
+                    internsArr.push(newIntern)
                     questions()
                 })
             } else {
-                // writefile
+                const teamArr = [...managerArr, ...internsArr, ...engineersArr]
+                fs.writeFile('index.html', team(teamArr), (err) =>
+                err ? console.log(err) : console.log('generating HTML'))
             }
         })
     };
