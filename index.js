@@ -9,7 +9,6 @@ const inquirer = require("inquirer");
 const managerArr = [];
 const engineersArr = [];
 const internsArr = [];
-// const teamArr = Array.prototype.push.apply(managerArr,engineersArr,internsArr)
 
 //Engineers questions
 const engQuestions = [
@@ -17,6 +16,7 @@ const engQuestions = [
     type: "input",
     message: "What is the engineers name?",
     name: "engName",
+    //The validate method checks if the user input is valid. For this case, we are checking for anything that is not a letter.
     validate: function (name){
       valid = /^[A-Za-z\s]*$/.test(name)
       if (valid){
