@@ -9,5 +9,12 @@
 }
 
 .custom-card-header{
-    background-color: rgb(41, 41, 226);
+    background-color: lightblue;
+}
+.custom-card-body{
+    background-color: rgb(226, 226, 226);
+}
+
+.custom-banner{
+    background-color: salmon;
 }
